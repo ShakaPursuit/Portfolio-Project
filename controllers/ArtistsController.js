@@ -1,12 +1,15 @@
-const express = requre('express');
+const express = require('express');
 const ArtistsController= express.Router();
+
+//  QUERIES
 const {getAllArtist,getArtistById,createArtist,updateArtist,deleteArtist}=require('../queries/artist')
 
-
+//VALIDATIONS
+const{checkBoolean, checkName}=require(`../validations/checkArtists`)
 //SHOW
 ArtistsController.get('/', async (req,res)=>{
     const artists = await getAllArtist();
-    if(artists){
+    if(artists[0]){
         res.status(200).json(artists)
     }else{
         res.status(500).json({error: `Internal Server Error`})
@@ -14,10 +17,11 @@ ArtistsController.get('/', async (req,res)=>{
 
 });
 
-//INDEX
+//INDEX?????
 ArtistsController.get('/:id',async (req,res)=>{
     try{
             const artist= await getArtistById(req.params.id);
+            
             res.status(200).json(artist)
 }catch(error){
             res.status(500).json({error: `Internal Server Error`})
@@ -27,11 +31,11 @@ ArtistsController.get('/:id',async (req,res)=>{
 });
 
 //CREATE
-ArtistsController.post('/',async (req,res)=>{
+ArtistsController.post('/',checkBoolean, checkName,async (req,res)=>{
    try{ const newArtist= await createArtist(req.body)
-    res.status(201).json(newArtist)
+    res.status(200).json(newArtist)
 
-   }catch{
+   }catch(error){
     res.status(500).json({error:`Internal Server Error`})
 
    }
@@ -39,9 +43,9 @@ ArtistsController.post('/',async (req,res)=>{
 })
 
 //EDIT/UPDATE
-ArtistsController.get('/:id', async(req,res)=>{
+ArtistsController.put('/:id' ,async(req,res)=>{
 try{
-    const updatedArtist= await updateArtist(req.params.id)
+    const updatedArtist= await updateArtist(req.body,req.params.id)
     res.status(200).json(updatedArtist);
 
 }catch(error){
@@ -52,7 +56,7 @@ try{
 
 //DELETE
 
-ArtistsController.get('/:id,' , async(req,res)=>{
+ArtistsController.delete('/:id' , async(req,res)=>{
 try{
     const deletedArtist = await deleteArtist(req.params.id);
     res.status(200).json(deletedArtist);

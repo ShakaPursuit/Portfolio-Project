@@ -13,8 +13,8 @@ skills TEXT NOT NULL,
 genre TEXT NOT NULL,
 instruments TEXT NOT NULL,
 independent BOOLEAN,
-years_of_experience NUMBER
-record_label VARCHAR
+years_of_experience INTEGER,
+record_label VARCHAR(30)
 
 
 
