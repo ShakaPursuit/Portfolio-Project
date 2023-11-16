@@ -11,7 +11,7 @@ app.use(express.json())
 //Accessing Router and Setting paths
 app.get("/",(req,res)=>{res.send('Welcome to Music Connection!')})
 
-app.use("/allartist", ArtistsController);
+app.use("/artist", ArtistsController);
 
 app.get("*",(req,res)=>{res.status(404).send('Not Found')});
 
