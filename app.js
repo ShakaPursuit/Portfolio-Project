@@ -10,10 +10,10 @@ app.use(express.json());
 app.use(morgan("tiny"));
 
 //Accessing Router and Setting paths
-// app.get("/",(req,res)=>{res.send('Welcome to Music Connection!')})
+ app.get("/",(req,res)=>{res.send('Welcome to Music Connection!')})
 
 const ArtistsController = require('./controllers/ArtistsController');
-app.use("/", ArtistsController);
+app.use("/artist", ArtistsController);
 
 app.get("*",(req,res)=>{res.status(404).send('Not Found')});
 
