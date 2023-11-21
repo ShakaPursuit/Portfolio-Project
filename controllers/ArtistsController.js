@@ -31,7 +31,7 @@ ArtistsController.get('/:id',async (req,res)=>{
 });
 
 //CREATE
-ArtistsController.post('/',checkBoolean, checkName,async (req,res)=>{
+ArtistsController.post('/', checkName,async (req,res)=>{
    try{ const newArtist= await createArtist(req.body)
     res.status(200).json(newArtist)
 

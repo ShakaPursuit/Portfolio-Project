@@ -2,7 +2,7 @@
 
 const checkName =(req,res,next)=>{
     if(req.body.name){
-        return next()
+        next()
     }else{
         res.status(400).jsont({error:`Name is required`})
     }
@@ -16,7 +16,7 @@ const checkBoolean = (req,res,next)=>{
     const independent=req.body.independent;
     if(
             
-            typeof independent === `boolean`
+            typeof independent == `boolean`
         ){
             next();
         }else{
